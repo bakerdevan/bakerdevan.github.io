@@ -1,3 +1,3 @@
-# http://bakerdevan.github.io
+# https://bakerdevan.github.io
 
 Devan Baker's Personal Resume Website
