@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const dob = document.getElementById("DOB").value;
         const susAddress = document.getElementById("SUSADDRESS").value;
         const susCityState = document.getElementById("SUSCITYSTATE").value;
+        const offenseTimeDay = document.getElementById("OFFENSETIMEDAY").value;
         const crime = document.getElementById("CRIME").value;
         const chargeCode = document.getElementById("CHARGECODE").value;
         const facts = document.getElementById("FACTS").value;
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 DOB: dob,
                 SUSADDRESS: susAddress,
                 SUSCITYSTATE: susCityState,
+                OFFENSETIMEDAY: offenseTimeDay,
                 CRIME: crime,
                 CHARGECODE: chargeCode,
                 FACTS: facts,
@@ -66,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                          .replace(/{{DOB}}/g, data.DOB)
                                          .replace(/{{SUSADDRESS}}/g, data.SUSADDRESS)
                                          .replace(/{{SUSCITYSTATE}}/g, data.SUSCITYSTATE)
+                                         .replace(/{{OFFENSETIMEDAY}}/g, data.OFFENSETIMEDAY)
                                          .replace(/{{CRIME}}/g, data.CRIME)
                                          .replace(/{{CHARGECODE}}/g, data.CHARGECODE)
                                          .replace(/{{FACTS}}/g, data.FACTS);
