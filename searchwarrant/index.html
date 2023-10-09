@@ -1,14 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 <head>
-    <title>Our Funky HTML Page</title>
-    <meta name="description" content="Our first page">
-    <meta name="keywords" content="html tutorial template">
+    <title>Form to DOCX</title>
+    <!-- Include mammoth.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 </head>
-
 <body>
-    <h1>This is a Test</h1>
-</body>
+    <h1>Form to DOCX</h1>
+    <form id="userForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br><br>
+        <!-- Add more form fields as needed -->
+        <input type="submit" value="Generate DOCX">
+    </form>
 
+    <script>
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Collect user input
+            var userName = document.getElementById("name").value;
+            var userEmail = document.getElementById("email").value;
+
+            // Your data processing logic here
+
+            // Replace placeholders in the Word template
+            var template = "<p>Hello, {{NAME}}!</p><p>Your email is {{EMAIL}}.</p>";
+            template = template.replace("{{NAME}}", userName);
+            template = template.replace("{{EMAIL}}", userEmail);
+
+            // Generate DOCX
+            mammoth.convertToHtml({ value: template }).then(function(result) {
+                var docxData = result.value; // HTML converted to DOCX
+                // You can save or present the DOCX data as needed
+            });
+        });
+    </script>
+</body>
 </html>
