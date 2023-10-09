@@ -2,20 +2,74 @@
 <html>
 <head>
     <title>Form to DOCX</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.23.1/docxtemplater.js"></script>
+    <!-- Include necessary scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.25.0/docxtemplater.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+
+    <script src="script.js"></script>
 </head>
 <body>
     <h1>Form to DOCX</h1>
     <form id="userForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email"><br><br>
-        <!-- Add more form fields as needed -->
+        <label for="TODAYDATE">Date:</label>
+        <input type="date" id="TODAYDATE" name="todaydate"><br><br>
+
+        <label for="RANK">Rank:</label>
+        <select id="RANK" name="rank">
+		<option value="Deputy">Deputy</option>
+		<option value="Sergeant">Sergeant</option>
+		<option value="Lieutenant">Lieutenant</option>
+		<option value="Major">Major</option>
+		<option value="Sheriff">Sheriff</option>
+	</select><br><br>
+
+        <label for="OFCNAME">Your Full Name:</label>
+        <input type="text" id="OFCNAME" name="ofcname"><br><br>
+
+        <label for="DSN">Your DSN:</label>
+        <input type="text" id="DSN" name="dsn"><br><br>
+
+        <label for="REPORTNUM">Report #:</label>
+        <input type="text" id="REPORTNUM" name="reportnum"><br><br>
+
+        <label for="SUSNAME">Suspect's Full Name:</label>
+        <input type="text" id="SUSNAME" name="susname"><br><br>
+
+        <label for="ETHNICITY">Suspect's Ethnicity:</label>
+        <select id="ETHNICITY" name="ethnicity">
+		<option value="W">White/Caucasian</option>
+		<option value="B">Black/African-American</option>
+		<option value="A">Asian Or Pacific Islander</option>
+		<option value="H">Hispanic</option>
+	</select><br><br>
+
+        <label for="GENDER">Suspect's Gender:</label>
+        <select id="GENDER" name="gender">
+		<option value="M">Male</option>
+		<option value="F">Female</option>
+	</select><br><br>
+
+        <label for="DOB">Suspect's DOB:</label>
+        <input type="date" id="DOB" name="dob"><br><br>
+
+        <label for="SUSADDRESS">Suspect's Street Address:</label>
+        <input type="text" id="SUSADDRESS" name="susaddress"><br><br>
+
+        <label for="SUSCITYSTATE">Suspect's City and State:</label>
+        <input type="text" id="SUSCITYSTATE" name="suscitystate"><br><br>
+
+        <label for="CRIME">Crime:</label>
+        <input type="text" id="CRIME" name="crime"><br><br>
+
+        <label for="CHARGECODE">Charge Code:</label>
+        <input type="text" id="CHARGECODE" name="chargecode"><br><br>
+
+        <label for="FACTS">Probable Cause Statement:</label>
+        <input type="text" id="FACTS" name="facts"><br><br>
+
         <input type="submit" value="Generate DOCX">
     </form>
-
-    <script src="script.js"></script>
 </body>
 </html>

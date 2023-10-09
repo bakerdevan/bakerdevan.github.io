@@ -1,46 +1,89 @@
-// script.js
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("userForm");
 
-document.getElementById("userForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form submission
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent form submission
 
-    // Collect user input
-    var userName = document.getElementById("name").value;
-    var userEmail = document.getElementById("email").value;
+        // Collect user input
+        const todayDate = document.getElementById("TODAYDATE").value;
+        const rank = document.getElementById("RANK").value;
+        const ofcName = document.getElementById("OFCNAME").value;
+        const dsn = document.getElementById("DSN").value;
+        const reportNum = document.getElementById("REPORTNUM").value;
+        const susName = document.getElementById("SUSNAME").value;
+        const ethnicity = document.getElementById("ETHNICITY").value;
+        const gender = document.getElementById("GENDER").value;
+        const dob = document.getElementById("DOB").value;
+        const susAddress = document.getElementById("SUSADDRESS").value;
+        const susCityState = document.getElementById("SUSCITYSTATE").value;
+        const crime = document.getElementById("CRIME").value;
+        const chargeCode = document.getElementById("CHARGECODE").value;
+        const facts = document.getElementById("FACTS").value;
 
-    // Fetch the template file
-    fetch('test.docx')
-        .then(response => response.arrayBuffer())
-        .then(templateContent => {
-            // Create a new DOCXtemplater instance
-            var doc = new window.docxtemplater();
+        try {
+            // Fetch the template file using Axios
+            const templateResponse = await axios.get('https://bakerdevan.github.io/searchwarrant/test.docx', {
+                responseType: 'arraybuffer'
+            });
+
+            // Create a new Blob with the template content
+            const templateData = new Blob([templateResponse.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+
+            // Initialize the JSZip instance
+            const zip = new JSZip();
 
             // Load the template content
-            doc.loadZip(templateContent);
+            const doc = await zip.loadAsync(templateData);
 
             // Data to fill the template
-            var data = {
-                NAME: userName,
-                EMAIL: userEmail,
+            const data = {
+                TODAYDATE: todayDate,
+                RANK: rank,
+                OFCNAME: ofcName,
+                DSN: dsn,
+                REPORTNUM: reportNum,
+                SUSNAME: susName,
+                ETHNICITY: ethnicity,
+                GENDER: gender,
+                DOB: dob,
+                SUSADDRESS: susAddress,
+                SUSCITYSTATE: susCityState,
+                CRIME: crime,
+                CHARGECODE: chargeCode,
+                FACTS: facts,
             };
 
-            // Bind data to the template
-            doc.setData(data);
+            // Replace placeholders in the document
+            const content = await doc.file('word/document.xml').async("string");
+            const updatedContent = content.replace(/{{TODAYDATE}}/g, data.TODAYDATE)
+                                         .replace(/{{RANK}}/g, data.RANK)
+                                         .replace(/{{OFCNAME}}/g, data.OFCNAME)
+                                         .replace(/{{DSN}}/g, data.DSN)
+                                         .replace(/{{REPORTNUM}}/g, data.REPORTNUM)
+                                         .replace(/{{SUSNAME}}/g, data.SUSNAME)
+                                         .replace(/{{ETHNICITY}}/g, data.ETHNICITY)
+                                         .replace(/{{GENDER}}/g, data.GENDER)
+                                         .replace(/{{DOB}}/g, data.DOB)
+                                         .replace(/{{SUSADDRESS}}/g, data.SUSADDRESS)
+                                         .replace(/{{SUSCITYSTATE}}/g, data.SUSCITYSTATE)
+                                         .replace(/{{CRIME}}/g, data.CRIME)
+                                         .replace(/{{CHARGECODE}}/g, data.CHARGECODE)
+                                         .replace(/{{FACTS}}/g, data.FACTS);
+            doc.file('word/document.xml', updatedContent);
 
-            // Perform the template substitution
-            doc.render();
+            // Generate the updated DOCX file as a Blob
+            const updatedBlob = await doc.generateAsync({ type: "blob" });
 
-            // Generate the DOCX file as a Blob
-            var blob = doc.getZip().generate({ type: 'blob' });
-
-            // Create a download link for the generated DOCX
-            var downloadLink = document.createElement('a');
-            downloadLink.href = URL.createObjectURL(blob);
+            // Create a download link for the updated DOCX
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(updatedBlob);
             downloadLink.download = 'generated.docx';
 
             // Trigger the download
             downloadLink.click();
-        })
-        .catch(error => {
-            console.error('Error fetching the template:', error);
-        });
+        } catch (error) {
+            console.error('An error occurred:', error);
+            // Handle errors here, e.g., display an error message to the user.
+        }
+    });
 });
