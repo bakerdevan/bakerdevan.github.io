@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Form to DOCX</title>
-    <!-- Include mammoth.js library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.23.1/docxtemplater.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
 </head>
 <body>
     <h1>Form to DOCX</h1>
@@ -16,27 +16,6 @@
         <input type="submit" value="Generate DOCX">
     </form>
 
-    <script>
-        document.getElementById("userForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Collect user input
-            var userName = document.getElementById("name").value;
-            var userEmail = document.getElementById("email").value;
-
-            // Your data processing logic here
-
-            // Replace placeholders in the Word template
-            var template = "<p>Hello, {{NAME}}!</p><p>Your email is {{EMAIL}}.</p>";
-            template = template.replace("{{NAME}}", userName);
-            template = template.replace("{{EMAIL}}", userEmail);
-
-            // Generate DOCX
-            mammoth.convertToHtml({ url: 'test.docx' }).then(function(result) {
-                var docxData = result.value; // HTML converted to DOCX
-                // You can save or present the DOCX data as needed
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
