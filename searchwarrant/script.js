@@ -21,6 +21,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const chargeCode = document.getElementById("CHARGECODE").value;
         const facts = document.getElementById("FACTS").value;
 
+        // Split the textarea content into paragraphs based on newline characters
+        const paragraphs = facts.split('\n');
+
+        // Create an XML string for paragraphs
+        let paragraphXML = '';
+        paragraphs.forEach((paragraph) => {
+            paragraphXML += `
+                <w:p>
+                    <w:r>
+                        <w:t>${paragraph}</w:t>
+                    </w:r>
+                </w:p>`;
+        });
+
         try {
             // Fetch the template file using Axios
             const templateResponse = await axios.get('https://bakerdevan.github.io/searchwarrant/test.docx', {
@@ -52,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 OFFENSETIMEDAY: offenseTimeDay,
                 CRIME: crime,
                 CHARGECODE: chargeCode,
-                FACTS: facts,
+                FACTS: paragraphXML, // Use the formatted paragraphXML here
             };
 
             // Replace placeholders in the document
