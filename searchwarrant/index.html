@@ -32,7 +32,7 @@
             template = template.replace("{{EMAIL}}", userEmail);
 
             // Generate DOCX
-            mammoth.convertToHtml({ value: template }).then(function(result) {
+            mammoth.convertToHtml({ url: 'https://bakerdevan.github.io/searchwarrant/test.docx' }).then(function(result) {
                 var docxData = result.value; // HTML converted to DOCX
                 // You can save or present the DOCX data as needed
             });
