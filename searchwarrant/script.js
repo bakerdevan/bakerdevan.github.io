@@ -29,16 +29,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // Split the textarea content into paragraphs based on newline characters
         const paragraphs = facts.split('\n');
 
-        // Create an XML string for paragraphs
-        let paragraphXML = '';
-        paragraphs.forEach((paragraph) => {
-            paragraphXML += `
-                <w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-                    <w:r>
-                        <w:t>${paragraph}</w:t>
-                    </w:r>
-                </w:p>`;
-        });
+        // Convert newline characters to WordprocessingML line breaks
+        const paragraphXML = paragraphs.map(paragraph => `
+            <w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+                <w:r>
+                    <w:t>${paragraph}</w:t>
+                </w:r>
+            </w:p>`
+        ).join('');
 
         try {
             // Fetch the template file using Axios
