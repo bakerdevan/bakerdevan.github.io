@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const chargeCode = document.getElementById("CHARGECODE").value;
         const facts = document.getElementById("FACTS").value;
 
+        // Input validation
+        if (!validateInputs(todayDate, rank, ofcName, dsn, reportNum, susName, ethnicity, gender, dob, susAddress, susCityState, offenseTimeDay, crime, chargeCode, facts)) {
+            return; // Don't proceed if validation fails
+        }
+
         // Split the textarea content into paragraphs based on newline characters
         const paragraphs = facts.split('\n');
 
@@ -66,26 +71,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 OFFENSETIMEDAY: offenseTimeDay,
                 CRIME: crime,
                 CHARGECODE: chargeCode,
-                FACTS: paragraphXML, // Use the formatted paragraphXML here
+                FACTS: paragraphXML,
             };
 
             // Replace placeholders in the document
             const content = await doc.file('word/document.xml').async("string");
             const updatedContent = content.replace(/{{TODAYDATE}}/g, data.TODAYDATE)
-                                         .replace(/{{RANK}}/g, data.RANK)
-                                         .replace(/{{OFCNAME}}/g, data.OFCNAME)
-                                         .replace(/{{DSN}}/g, data.DSN)
-                                         .replace(/{{REPORTNUM}}/g, data.REPORTNUM)
-                                         .replace(/{{SUSNAME}}/g, data.SUSNAME)
-                                         .replace(/{{ETHNICITY}}/g, data.ETHNICITY)
-                                         .replace(/{{GENDER}}/g, data.GENDER)
-                                         .replace(/{{DOB}}/g, data.DOB)
-                                         .replace(/{{SUSADDRESS}}/g, data.SUSADDRESS)
-                                         .replace(/{{SUSCITYSTATE}}/g, data.SUSCITYSTATE)
-                                         .replace(/{{OFFENSETIMEDAY}}/g, data.OFFENSETIMEDAY)
-                                         .replace(/{{CRIME}}/g, data.CRIME)
-                                         .replace(/{{CHARGECODE}}/g, data.CHARGECODE)
-                                         .replace(/{{FACTS}}/g, data.FACTS);
+                .replace(/{{RANK}}/g, data.RANK)
+                .replace(/{{OFCNAME}}/g, data.OFCNAME)
+                .replace(/{{DSN}}/g, data.DSN)
+                .replace(/{{REPORTNUM}}/g, data.REPORTNUM)
+                .replace(/{{SUSNAME}}/g, data.SUSNAME)
+                .replace(/{{ETHNICITY}}/g, data.ETHNICITY)
+                .replace(/{{GENDER}}/g, data.GENDER)
+                .replace(/{{DOB}}/g, data.DOB)
+                .replace(/{{SUSADDRESS}}/g, data.SUSADDRESS)
+                .replace(/{{SUSCITYSTATE}}/g, data.SUSCITYSTATE)
+                .replace(/{{OFFENSETIMEDAY}}/g, data.OFFENSETIMEDAY)
+                .replace(/{{CRIME}}/g, data.CRIME)
+                .replace(/{{CHARGECODE}}/g, data.CHARGECODE)
+                .replace(/{{FACTS}}/g, data.FACTS);
             doc.file('word/document.xml', updatedContent);
 
             // Generate the updated DOCX file as a Blob
@@ -103,4 +108,15 @@ document.addEventListener("DOMContentLoaded", function () {
             // Handle errors here, e.g., display an error message to the user.
         }
     });
+
+    // Input validation function
+    function validateInputs(...inputs) {
+        for (const input of inputs) {
+            if (!input) {
+                alert('Please fill out all required fields.');
+                return false;
+            }
+        }
+        return true;
+    }
 });
