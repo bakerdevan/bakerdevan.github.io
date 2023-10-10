@@ -26,18 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return; // Don't proceed if validation fails
         }
 
-        // Split the textarea content into paragraphs based on newline characters
-        const paragraphs = facts.split('\n');
-
-        // Convert newline characters to WordprocessingML line breaks
-        const paragraphXML = paragraphs.map(paragraph => `
-            <w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-                <w:r>
-                    <w:t>${paragraph}</w:t>
-                </w:r>
-            </w:p>`
-        ).join('');
-
         try {
             // Fetch the template file using Axios
             const templateResponse = await axios.get('https://bakerdevan.github.io/searchwarrant/test.docx', {
@@ -69,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 OFFENSETIMEDAY: offenseTimeDay,
                 CRIME: crime,
                 CHARGECODE: chargeCode,
-                FACTS: paragraphXML,
+                FACTS: facts,
             };
 
             // Replace placeholders in the document
@@ -87,6 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Generate the updated DOCX file as a Blob
             const updatedBlob = await doc.generateAsync({ type: "blob" });
 
+            // Convert the facts to HTML using Mammoth
+            const htmlFacts = await mammoth.convertToHtml(facts);
+            
             // Create a download link for the updated DOCX
             const downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(updatedBlob);
