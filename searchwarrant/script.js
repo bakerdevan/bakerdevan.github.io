@@ -33,12 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
         let paragraphXML = '';
         paragraphs.forEach((paragraph) => {
             paragraphXML += `
-                <w:p>
-                    <w:r>
-                        <w:t>${paragraph}</w:t>
-                    </w:r>
-                </w:p>`;
+        <w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+            <w:r>
+                <w:t>${paragraph}</w:t>
+            </w:r>
+        </w:p>`;
         });
+
 
         try {
             // Fetch the template file using Axios
