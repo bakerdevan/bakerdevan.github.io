@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             // Fetch the template file using Axios
-            const templateResponse = await axios.get('https://bakerdevan.github.io/searchwarrant/test.docx', {
+            const templateResponse = await axios.get('test.docx', {
                 responseType: 'arraybuffer'
             });
 
