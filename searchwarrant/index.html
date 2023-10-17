@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Form to DOCX</title>
-    <!-- Include necessary scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.25.0/docxtemplater.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script src="script.js"></script>
 </head>
+
 <body>
-    <h1>Form to DOCX</h1>
+    <h1>PC Generator</h1>
     <form id="userForm">
         <label for="TODAYDATE">Date:</label>
         <input type="date" id="TODAYDATE" name="todaydate"><br><br>
 
         <label for="RANK">Rank:</label>
         <select id="RANK" name="rank">
-		<option value="Deputy">Deputy</option>
-		<option value="Sergeant">Sergeant</option>
-		<option value="Lieutenant">Lieutenant</option>
-		<option value="Major">Major</option>
-		<option value="Sheriff">Sheriff</option>
-	</select><br><br>
+            <option value="Deputy">Deputy</option>
+            <option value="Sergeant">Sergeant</option>
+            <option value="Lieutenant">Lieutenant</option>
+            <option value="Major">Major</option>
+            <option value="Sheriff">Sheriff</option>
+        </select><br><br>
 
         <label for="OFCNAME">Your Full Name:</label>
         <input type="text" id="OFCNAME" name="ofcname"><br><br>
@@ -41,17 +40,17 @@
 
         <label for="ETHNICITY">Suspect's Ethnicity:</label>
         <select id="ETHNICITY" name="ethnicity">
-		<option value="W">White/Caucasian</option>
-		<option value="B">Black/African-American</option>
-		<option value="A">Asian Or Pacific Islander</option>
-		<option value="H">Hispanic</option>
-	</select><br><br>
+            <option value="W">White/Caucasian</option>
+            <option value="B">Black/African-American</option>
+            <option value="A">Asian Or Pacific Islander</option>
+            <option value="H">Hispanic</option>
+        </select><br><br>
 
         <label for="GENDER">Suspect's Gender:</label>
         <select id="GENDER" name="gender">
-		<option value="M">Male</option>
-		<option value="F">Female</option>
-	</select><br><br>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select><br><br>
 
         <label for="DOB">Suspect's DOB:</label>
         <input type="date" id="DOB" name="dob"><br><br>
@@ -77,4 +76,5 @@
         <input type="submit" value="Generate">
     </form>
 </body>
+
 </html>

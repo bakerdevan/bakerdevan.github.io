@@ -19,12 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const offenseTimeDay = document.getElementById("OFFENSETIMEDAY").value;
         const crime = document.getElementById("CRIME").value;
         const chargeCode = document.getElementById("CHARGECODE").value;
-        const facts = document.getElementById("FACTS").value;
-
-        // Input validation
-        if (!validateInputs(todayDate, rank, ofcName, dsn, reportNum, susName, ethnicity, gender, dob, susAddress, susCityState, offenseTimeDay, crime, chargeCode, facts)) {
-            return; // Don't proceed if validation fails
-        }
+        
+        // Collect "facts" input correctly
+        const factsTextarea = document.getElementById("FACTS");
+        const facts = factsTextarea.value;
 
         try {
             // Fetch the template file using Axios
@@ -57,27 +55,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 OFFENSETIMEDAY: offenseTimeDay,
                 CRIME: crime,
                 CHARGECODE: chargeCode,
-                FACTS: facts,
             };
+
+            // Create an XML string for paragraphs
+            const paragraphXML = createParagraphsXML(facts);
 
             // Replace placeholders in the document
             const content = await doc.file('word/document.xml').async("string");
-            let updatedContent = content;
-            for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                    const placeholder = `{{${key}}}`;
-                    const regex = new RegExp(placeholder, 'g');
-                    updatedContent = updatedContent.replace(regex, data[key]);
-                }
-            }
+            const updatedContent = content.replace(/{{TODAYDATE}}/g, data.TODAYDATE)
+                                         .replace(/{{RANK}}/g, data.RANK)
+                                         .replace(/{{OFCNAME}}/g, data.OFCNAME)
+                                         .replace(/{{DSN}}/g, data.DSN)
+                                         .replace(/{{REPORTNUM}}/g, data.REPORTNUM)
+                                         .replace(/{{SUSNAME}}/g, data.SUSNAME)
+                                         .replace(/{{ETHNICITY}}/g, data.ETHNICITY)
+                                         .replace(/{{GENDER}}/g, data.GENDER)
+                                         .replace(/{{DOB}}/g, data.DOB)
+                                         .replace(/{{SUSADDRESS}}/g, data.SUSADDRESS)
+                                         .replace(/{{SUSCITYSTATE}}/g, data.SUSCITYSTATE)
+                                         .replace(/{{OFFENSETIMEDAY}}/g, data.OFFENSETIMEDAY)
+                                         .replace(/{{CRIME}}/g, data.CRIME)
+                                         .replace(/{{CHARGECODE}}/g, data.CHARGECODE)
+                                         .replace(/{{FACTS}}/g, paragraphXML);
             doc.file('word/document.xml', updatedContent);
 
             // Generate the updated DOCX file as a Blob
             const updatedBlob = await doc.generateAsync({ type: "blob" });
 
-            // Convert the facts to HTML using Mammoth
-            const htmlFacts = await mammoth.convertToHtml(facts);
-            
             // Create a download link for the updated DOCX
             const downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(updatedBlob);
@@ -91,14 +95,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Input validation function
-    function validateInputs(...inputs) {
-        for (const input of inputs) {
-            if (!input) {
-                alert('Please fill out all required fields.');
-                return false;
-            }
-        }
-        return true;
+    // Function to create an XML string for paragraphs
+    function createParagraphsXML(paragraphs) {
+        const paragraphArray = paragraphs.split('\n');
+        let paragraphXML = '';
+        paragraphArray.forEach((paragraph) => {
+            paragraphXML += `
+                <w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+                    <w:r>
+                        <w:t>${paragraph}</w:t>
+                    </w:r>
+                </w:p>`;
+        });
+        return paragraphXML;
     }
 });
