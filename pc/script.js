@@ -30,14 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 responseType: 'arraybuffer'
             });
 
-            // Create a new Blob with the template content
-            const templateData = new Blob([templateResponse.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+            const zip = new PizZip(templateResponse.data);
 
-            // Initialize the JSZip instance
-            const zip = new JSZip();
-
-            // Load the template content
-            const doc = await zip.loadAsync(templateData);
+            const doc = new Docxtemplater().loadZip(zip);
 
             // Data to fill the template
             const data = {
@@ -55,39 +50,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 OFFENSETIMEDAY: offenseTimeDay,
                 CRIME: crime,
                 CHARGECODE: chargeCode,
+                FACTS: facts,  // Add the facts field
             };
 
-            // Replace placeholders in the document
-            const content = await doc.file('word/document.xml').async("string");
+            doc.setData(data);
 
-            // Create an XML string for paragraphs
-            const paragraphXML = createParagraphsXML(facts);
+            doc.render();
 
-            const updatedContent = content
-                .replace(/{{TODAYDATE}}/g, data.TODAYDATE)
-                .replace(/{{RANK}}/g, data.RANK)
-                .replace(/{{OFCNAME}}/g, data.OFCNAME)
-                .replace(/{{DSN}}/g, data.DSN)
-                .replace(/{{REPORTNUM}}/g, data.REPORTNUM)
-                .replace(/{{SUSNAME}}/g, data.SUSNAME)
-                .replace(/{{ETHNICITY}}/g, data.ETHNICITY)
-                .replace(/{{GENDER}}/g, data.GENDER)
-                .replace(/{{DOB}}/g, data.DOB)
-                .replace(/{{SUSADDRESS}}/g, data.SUSADDRESS)
-                .replace(/{{SUSCITYSTATE}}/g, data.SUSCITYSTATE)
-                .replace(/{{OFFENSETIMEDAY}}/g, data.OFFENSETIMEDAY)
-                .replace(/{{CRIME}}/g, data.CRIME)
-                .replace(/{{CHARGECODE}}/g, data.CHARGECODE)
-                .replace(/{{FACTS}}/g, paragraphXML);
+            const generatedBlob = doc.getZip().generate({ type: "blob" });
 
-            doc.file('word/document.xml', updatedContent);
-
-            // Generate the updated DOCX file as a Blob
-            const updatedBlob = await doc.generateAsync({ type: "blob" });
-
-            // Create a download link for the updated DOCX
             const downloadLink = document.createElement('a');
-            downloadLink.href = URL.createObjectURL(updatedBlob);
+            downloadLink.href = URL.createObjectURL(generatedBlob);
             downloadLink.download = 'generated.docx';
 
             // Trigger the download
@@ -97,19 +70,4 @@ document.addEventListener("DOMContentLoaded", function () {
             // Handle errors here, e.g., display an error message to the user.
         }
     });
-
-    // Function to create an XML string for paragraphs
-    function createParagraphsXML(paragraphs) {
-        const paragraphArray = paragraphs.split('\n');
-        let paragraphXML = '';
-        paragraphArray.forEach((paragraph) => {
-            paragraphXML += `
-                <w:p xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-                    <w:r>
-                        <w:t>${paragraph}</w:t>
-                    </w:r>
-                </w:p>`;
-        });
-        return paragraphXML;
-    }
 });
