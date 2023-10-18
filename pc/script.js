@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             
             const zip = new PizZip(templateResponse.data);
-            const Docxtemplater = require('docxtemplater');
-            const doc = new Docxtemplater().loadZip(zip);
+            const Docxtemplater = new docxtemplater();
+            docxtemplater.loadZip(zip);
 
             // Data to fill the template
             const data = {
@@ -53,11 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 FACTS: facts, // Add the facts field
             };
 
-            doc.setData(data);
+            docxtemplater.setData(data);
 
-            doc.render();
+            docxtemplater.render();
 
-            const generatedBlob = doc.getZip().generate({ type: "blob" });
+            const generatedBlob = docxtemplater.getZip().generate({ type: "blob" });
 
             const downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(generatedBlob);
