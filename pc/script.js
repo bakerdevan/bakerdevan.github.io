@@ -30,8 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 responseType: 'arraybuffer'
             });
 
+            // Create a PizZip object with the template data
             const zip = new PizZip(templateResponse.data);
 
+            // Create a Docxtemplater instance and load the zip
             const doc = new Docxtemplater().loadZip(zip);
 
             // Data to fill the template
@@ -50,15 +52,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 OFFENSETIMEDAY: offenseTimeDay,
                 CRIME: crime,
                 CHARGECODE: chargeCode,
-                FACTS: facts,  // Add the facts field
+                FACTS: facts, // Add the facts field
             };
 
+            // Set data in the template
             doc.setData(data);
 
+            // Render the template
             doc.render();
 
+            // Generate the updated DOCX file as a Blob
             const generatedBlob = doc.getZip().generate({ type: "blob" });
 
+            // Create a download link for the updated DOCX
             const downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(generatedBlob);
             downloadLink.download = 'generated.docx';
