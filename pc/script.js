@@ -4,18 +4,34 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", async function (event) {
         event.preventDefault(); // Prevent form submission
 
-        // Collect user input (same as before)
+        // Collect user input
+        const todayDate = document.getElementById("TODAYDATE").value;
+        const rank = document.getElementById("RANK").value;
+        const ofcName = document.getElementById("OFCNAME").value;
+        const dsn = document.getElementById("DSN").value;
+        const reportNum = document.getElementById("REPORTNUM").value;
+        const susName = document.getElementById("SUSNAME").value;
+        const ethnicity = document.getElementById("ETHNICITY").value;
+        const gender = document.getElementById("GENDER").value;
+        const dob = document.getElementById("DOB").value;
+        const susAddress = document.getElementById("SUSADDRESS").value;
+        const susCityState = document.getElementById("SUSCITYSTATE").value;
+        const offenseTimeDay = document.getElementById("OFFENSETIMEDAY").value;
+        const crime = document.getElementById("CRIME").value;
+        const chargeCode = document.getElementById("CHARGECODE").value;
+
+        // Collect "facts" input correctly
+        const factsTextarea = document.getElementById("FACTS");
+        const facts = factsTextarea.value;
 
         try {
-            const PizZip = require('pizzip');
-            const Docxtemplater = require('docxtemplater');
-            
             // Fetch the template file using Axios
             const templateResponse = await axios.get('https://bakerdevan.github.io/pc/test.docx', {
                 responseType: 'arraybuffer'
             });
             
             const zip = new PizZip(templateResponse.data);
+            const Docxtemplater = require('docxtemplater');
             const doc = new Docxtemplater().loadZip(zip);
 
             // Data to fill the template
