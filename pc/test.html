@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Form to DOCX</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.25.0/docxtemplater.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docxtemplater@latest/build/docxtemplater.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.4/dist/pizzip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@latest/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@latest/mammoth.browser.min.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    
 </head>
+
 <body>
-    <h1>PC Generator</h1>
+    <h1>Form to DOCX</h1>
     <form id="userForm">
         <label for="TODAYDATE">Date:</label>
         <input type="date" id="TODAYDATE" name="todaydate"><br><br>
@@ -45,7 +49,7 @@
         </select><br><br>
 
         <label for="GENDER">Suspect's Gender:</label>
-        <select id="GENDER" name "gender">
+        <select id="GENDER" name="gender">
             <option value="M">Male</option>
             <option value="F">Female</option>
         </select><br><br>
@@ -63,7 +67,8 @@
         <input type="text" id="OFFENSETIMEDAY" name="offensetimeday"><br><br>
 
         <label for="CRIME">Crime:</label>
-        <input type="text" id="CRIME" name="crime"><br><br>
+        <input type="text" id="CRIME" list="crimeautofill" name="crime">
+        <datalist id="crimeautofill"></datalist>
 
         <label for="CHARGECODE">Charge Code:</label>
         <input type="text" id="CHARGECODE" name="chargecode"><br><br>
@@ -74,4 +79,5 @@
         <input type="submit" value="Generate">
     </form>
 </body>
+<script src="csvparser.js"></script>
 </html>
