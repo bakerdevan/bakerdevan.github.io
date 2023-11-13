@@ -2,82 +2,130 @@
 <html>
 
 <head>
-    <title>Form to DOCX</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Generator</title>
+    <link rel="stylesheet" href="pc.css">
     <script src="https://cdn.jsdelivr.net/npm/docxtemplater@latest/build/docxtemplater.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pizzip@3.1.4/dist/pizzip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@latest/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mammoth@latest/mammoth.browser.min.js"></script>
-    <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    
+    <script src="script.js"></script>
 </head>
 
 <body>
-    <h1>Form to DOCX</h1>
-    <form id="userForm">
-        <label for="TODAYDATE">Date:</label>
-        <input type="date" id="TODAYDATE" name="todaydate"><br><br>
+    <main>
+        <form id="userForm">
+            <div>
+                <img src="https://www.crawfordcountyso.org/templates/crawfordcountyso.org/images/header-badge.png"
+                    style="width: 10%" />
+                <h2>PC Generator</h2>
+            </div>
+            <div class="inputBox">
+                <label for="TODAYDATE">Date:</label>
+                <input type="date" id="TODAYDATE" name="todaydate">
+            </div>
 
-        <label for="RANK">Rank:</label>
-        <select id="RANK" name="rank">
-            <option value="Deputy">Deputy</option>
-            <option value="Sergeant">Sergeant</option>
-            <option value="Lieutenant">Lieutenant</option>
-            <option value="Major">Major</option>
-            <option value="Sheriff">Sheriff</option>
-        </select><br><br>
+            <div class="inputBox">
+                <label for="RANK">Rank:</label>
+                <select id="RANK" name="rank">
+                    <option value="Deputy">Deputy</option>
+                    <option value="Sergeant">Sergeant</option>
+                    <option value="Lieutenant">Lieutenant</option>
+                    <option value="Major">Major</option>
+                    <option value="Sheriff">Sheriff</option>
+                </select>
+            </div>
 
-        <label for="OFCNAME">Your Full Name:</label>
-        <input type="text" id="OFCNAME" name="ofcname"><br><br>
+            <div class="inputBox">
+                <label for="OFCNAME">Your Full Name:</label>
+                <input type="text" id="OFCNAME" name="ofcname">
+            </div>
 
-        <label for="DSN">Your DSN:</label>
-        <input type="text" id="DSN" name="dsn"><br><br>
+            <div class="inputBox">
+                <label for="DSN">Your DSN:</label>
+                <input type="text" id="DSN" name="dsn">
+            </div>
 
-        <label for="REPORTNUM">Report #:</label>
-        <input type="text" id="REPORTNUM" name="reportnum"><br><br>
+            <div class="inputBox">
+                <label for="REPORTNUM">Report #:</label>
+                <input type="text" id="REPORTNUM" name="reportnum">
+            </div>
 
-        <label for="SUSNAME">Suspect's Full Name:</label>
-        <input type="text" id="SUSNAME" name="susname"><br><br>
+            <div class="inputBox">
+                <label for="SUSNAME">Suspect's Full Name:</label>
+                <input type="text" id="SUSNAME" name="susname">
+            </div>
 
-        <label for="ETHNICITY">Suspect's Ethnicity:</label>
-        <select id="ETHNICITY" name="ethnicity">
-            <option value="W">White/Caucasian</option>
-            <option value="B">Black/African-American</option>
-            <option value="A">Asian Or Pacific Islander</option>
-            <option value="H">Hispanic</option>
-        </select><br><br>
+            <div class="inputBox">
+                <label for="ETHNICITY">Suspect's Ethnicity:</label>
+                <select id="ETHNICITY" name="ethnicity">
+                    <option value="W">White/Caucasian</option>
+                    <option value="B">Black/African-American</option>
+                    <option value="A">Asian Or Pacific Islander</option>
+                    <option value="H">Hispanic</option>
+                </select>
+            </div>
 
-        <label for="GENDER">Suspect's Gender:</label>
-        <select id="GENDER" name="gender">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-        </select><br><br>
+            <div class="inputBox">
+                <label for="GENDER">Suspect's Gender:</label>
+                <select id="GENDER" name="gender">
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
 
-        <label for="DOB">Suspect's DOB:</label>
-        <input type="date" id="DOB" name="dob"><br><br>
+            <div class="inputBox">
+                <label for="DOB">Suspect's DOB:</label>
+                <input type="date" id="DOB" name="dob">
+            </div>
 
-        <label for="SUSADDRESS">Suspect's Street Address:</label>
-        <input type="text" id="SUSADDRESS" name="susaddress"><br><br>
+            <div class="inputBox">
+                <label for="SUSADDRESS">Suspect's Street Address:</label>
+                <input type="text" id="SUSADDRESS" name="susaddress">
+            </div>
 
-        <label for="SUSCITYSTATE">Suspect's City and State:</label>
-        <input type="text" id="SUSCITYSTATE" name="suscitystate"><br><br>
+            <div class="inputBox">
+                <label for="SUSCITYSTATE">Suspect's City and State:</label>
+                <input type="text" id="SUSCITYSTATE" name="suscitystate">
+            </div>
 
-        <label for="OFFENSETIMEDAY">Offense Date and Time:</label>
-        <input type="text" id="OFFENSETIMEDAY" name="offensetimeday"><br><br>
+            <div class="inputBox">
+                <label for="OFFENSETIMEDAY">Offense Date and Time:</label>
+                <input type="text" id="OFFENSETIMEDAY" name="offensetimeday">
+            </div>
 
-        <label for="CRIME">Crime:</label>
-        <input type="text" id="CRIME" list="crimeautofill" name="crime">
-        <datalist id="crimeautofill"></datalist>
+            <div id="chargesContainer" class="inputBox">
+                <div class="charges" id="charges1">
+                    <label for="CRIME">Crime:</label>
+                    <input type="text" id="CRIME" list="crimeautofill" name="crime">
+                    <datalist id="crimeautofill"></datalist>
 
-        <label for="CHARGECODE">Charge Code:</label>
-        <input type="text" id="CHARGECODE" name="chargecode"><br><br>
+                    <label for="CHARGECODE">RSMO:</label>
+                    <input type="text" id="CHARGECODE" name="chargecode">
 
-        <p><label for="FACTS">Probable Cause Statement:</label></p>
-        <textarea id="FACTS" name="facts" rows="15" style="width:75%"></textarea><br><br>
+                    <button type="button" id="addChargesBtn">+</button>
+                </div>
+            </div>
 
-        <input type="submit" value="Generate">
-    </form>
+            <div id="addedCharges" class="inputBox"></div>
+
+            <div class="inputBox">
+                <p><label for="FACTS">Probable Cause Statement:</label></p>
+                <textarea id="FACTS" name="facts" rows="15" style="width:75%"></textarea>
+            </div>
+
+            <input type="submit" value="Generate DOC">
+        </form>
+    </main>
 </body>
-<script src="csvparser.js"></script>
+
+<script>
+    let label = document.querySelectorAll('label').forEach(label => {
+        label.innerHTML = label.innerText.split('').map((letters, i) => `<span style="transition-delay: ${i * 50}ms">${letters}</span>`).join('');
+    });
+</script>
+
 </html>
