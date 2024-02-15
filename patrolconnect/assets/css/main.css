@@ -3261,7 +3261,7 @@
 /* CTA */
 
 	#cta {
-		background: #3c6a7d;
+		background: #2773b9;
 		color: #fbfaf5;
 		padding: 3.5em 0 4em 0;
 		text-align: center;
@@ -3285,6 +3285,7 @@
 			background: #fff;
 			color: #3c6a7d;
 			font-weight: bold;
+			margin-top: 10px;
 		}
 
 		#cta input[type="text"],
@@ -3295,6 +3296,7 @@
 			color: #ffffff;
 			background: rgba(255, 255, 255, 0.15);
 			border: 0;
+			margin-top: 10px;
 		}
 
 			#cta input[type="text"]:focus,
